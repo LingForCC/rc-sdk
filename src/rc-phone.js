@@ -1,20 +1,32 @@
-import RcSdk from './lib/rc-sdk';
+import Sdk from './lib/sdk';
 import Subscription from './lib/subscription';
 
-export default class RcPhone {
-  constructor(options) {
+const SDK = Symbol();
+const SUBSCRIPTION = Symbol();
 
+export default class RcPhone {
+  constructor({
+    sdkSettings,
+    storage
+  }) {
+
+    this[SDK] = new Sdk({
+      sdkSettings,
+      storage
+    });
+
+    this[SUBSCRIPTION] = new Subscription({
+      sdk: this[SDK]
+    });
   }
 
-/*
- *  get sdk() {
- *
- *  }
- *
- *  get api() {
- *
- *  }
- */
+  get sdk() {
+    return this[SDK];
+  }
+
+  get api() {
+
+  }
 
   login() {
 
@@ -29,7 +41,7 @@ export default class RcPhone {
   }
 
   get cache() {
-
+    this[SDK].base._cache;
   }
 
   get contact() {

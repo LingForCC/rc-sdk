@@ -1,16 +1,16 @@
+import Wrapper from './wrapper';
 
 const SDK = Symbol();
 const HANDLERS = Symbol();
-const SUB = Symbol();
 const FILTERS = Symbol();
 
-export default class Subscription {
-  constructor(sdk) {
+export default class Subscription extends Wrapper {
+  constructor({ sdk }) {
+    super(sdk.createSubscription());
     this[SDK] = sdk;
-    this[SUB] = this[SDK].createSubscription();
     this[FILTERS] = new Set();
     this[HANDLERS] = new Map();
-    this[SUB].on(this.events.notification, m => {
+    this.base.on(this.events.notification, m => {
       if(this[HANDLERS].has(m.event)) {
         this[HANDLERS].get(m.event).forEach(handler => {
           try {
@@ -23,7 +23,7 @@ export default class Subscription {
     });
   }
   get events() {
-    return this[SUB].events;
+    return this.base.events;
   }
   subscribe(event, handler) {
     if(event && typeof handler === 'function') {
@@ -32,8 +32,8 @@ export default class Subscription {
       }
       if(!this[FILTERS].has(event)) {
         this[FILTERS].add(event);
-        this[SUB].setEventFilters(Array.from(this[FILTERS]));
-        this[SUB].register();
+        this.base.setEventFilters(Array.from(this[FILTERS]));
+        this.base.register();
       }
       this[HANDLERS].get(event).add(handler);
     }

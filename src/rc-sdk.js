@@ -33,4 +33,7 @@ export default class RcSdk {
   get subscription() {
     return this[SUB];
   }
+  get message() {
+
+  }
 }

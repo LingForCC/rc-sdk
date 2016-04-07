@@ -6,7 +6,7 @@ const FILTERS = Symbol();
 
 export default class Subscription extends Wrapper {
   constructor({ sdk }) {
-    super(sdk.createSubscription());
+    super(sdk.base.createSubscription());
     this[SDK] = sdk;
     this[FILTERS] = new Set();
     this[HANDLERS] = new Map();

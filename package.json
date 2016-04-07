@@ -1,7 +1,7 @@
 {
   "name": "rc-sdk",
   "version": "0.1.0",
-  "description": "Extensible wrapper framework around ringcentral-js and ringcentral-web-phone.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/babel-cli/bin/babel-node.js ./node_modules/gulp/bin/gulp.js test"

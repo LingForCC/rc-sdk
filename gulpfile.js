@@ -4,7 +4,7 @@ import istanbul from 'gulp-istanbul';
 import babelIstanbul from 'babel-istanbul';
 
 gulp.task('pre-test', () => {
-  return gulp.src('src/*')
+  return gulp.src('src/**/*.js')
   .pipe(istanbul({
     includeUntested: true,
     instrumenter: babelIstanbul.Instrumenter

@@ -12,13 +12,6 @@ export default class Sdk extends Wrapper {
     server,
     sdk
   }, storage) {
-    let {
-      appKey,
-      appSecret,
-      cachePrefix,
-      server,
-      sdk
-    } = options;
 
     if(!sdk) {
       let tmp = RingCentral.Externals.localStorage;

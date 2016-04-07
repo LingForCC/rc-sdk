@@ -5,5 +5,8 @@ export default {
   sdk: {
     ...accounts.sdk,
     server: RingCentral.server.production
+  },
+  brand: {
+    ...accounts.brand
   }
 }

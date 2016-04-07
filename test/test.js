@@ -7,7 +7,10 @@ describe('rc-phone', () => {
   it('should work', () => {
     let phone = new RcPhone({
       sdkSettings: {
-        ...config.sdk
+        ...config.sdk,
+      },
+      brandSettings: {
+        ...config.brand
       }
     });
   });

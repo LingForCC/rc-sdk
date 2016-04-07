@@ -3,8 +3,9 @@ import mocha from 'gulp-mocha';
 import istanbul from 'gulp-istanbul';
 import babelIstanbul from 'babel-istanbul';
 import config from './config';
+import through from 'through2';
 
-gulp.task('pre-test', () => {
+gulp.task('pre-coverage', () => {
   return gulp.src('src/**/*.js')
   .pipe(istanbul({
     includeUntested: true,
@@ -13,9 +14,13 @@ gulp.task('pre-test', () => {
   .pipe(istanbul.hookRequire());
 });
 
-gulp.task('test', ['pre-test'], () => {
+gulp.task('coverage', ['pre-coverage'], () => {
   return gulp.src('test/*')
   .pipe(mocha())
   .pipe(istanbul.writeReports());
 });
 
+gulp.task('test', () => {
+  return gulp.src('test/*')
+  .pipe(mocha());
+});

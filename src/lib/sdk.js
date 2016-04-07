@@ -1,33 +1,36 @@
 import RingCentral from 'ringcentral';
 import Wrapper from './wrapper';
 
+
 /**
- * wrapper around RingCentral
+ * @class Sdk
+ * wrapper around RingCentral official js sdk.
  */
 export default class Sdk extends Wrapper {
-  constructor({
+  constructor ({
     appKey,
     appSecret,
-    cachePrefix,
+    cachePrefix = 'rc',
     server,
-    sdk
-  }, storage) {
+    storage, //allow defining storage options when newing sdk objects
+  }) {
 
-    if(!sdk) {
-      let tmp = RingCentral.Externals.localStorage;
-      if(storage) {
-        RingCentral.Externals.localStorage = storage;
-      }
-      sdk = new RingCentral({
-        appKey,
-        appSecret,
-        cachePrefix,
-        server
-      });
-      if(storage) {
-        RingCentral.Externals.localStorage = tmp;
-      }
+    //temperarily change localStorage option during sdk object instantiation
+    let tmp = RingCentral.core.Externals.localStorage;
+    if(storage) {
+      RingCentral.Externals.localStorage = storage;
     }
-    super(sdk);
+    let sdkInstance = new RingCentral({
+      appKey,
+      appSecret,
+      cachePrefix: `${cachePrefix}-`,
+      server
+    });
+
+    //return localStorage options after instantiation
+    if(storage) {
+      RingCentral.core.Externals.localStorage = tmp;
+    }
+    super(sdkInstance);
   }
 }

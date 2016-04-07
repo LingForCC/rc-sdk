@@ -6,21 +6,28 @@ const SUBSCRIPTION = Symbol();
 
 export default class RcPhone {
   constructor({
+    sdkInstance,
     sdkSettings,
-    storage
+    sdkProvider = Sdk,
+    storage,
+
   }) {
 
-    this[SDK] = new Sdk({
-      sdkSettings,
-      storage
-    });
+    if(!sdkInstance) {
+      if(!sdkSettings) {
+        throw new Error('no sdk settings found...');
+      }
+      sdkInstance = new sdkProvider(sdkSettings, storage);
+    }
+    this[SDK] = sdkInstance;
+
 
     this[SUBSCRIPTION] = new Subscription({
       sdk: this[SDK]
     });
   }
 
-  get sdk() {
+   get sdk() {
     return this[SDK];
   }
 
@@ -28,13 +35,6 @@ export default class RcPhone {
 
   }
 
-  login() {
-
-  }
-
-  logout() {
-
-  }
 
   get brand() {
 

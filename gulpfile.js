@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import mocha from 'gulp-mocha';
 import istanbul from 'gulp-istanbul';
 import babelIstanbul from 'babel-istanbul';
+import config from './config';
 
 gulp.task('pre-test', () => {
   return gulp.src('src/**/*.js')

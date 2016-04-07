@@ -4,9 +4,24 @@ const SDK = Symbol();
 const HANDLERS = Symbol();
 const FILTERS = Symbol();
 
-export default class Subscription extends Wrapper {
+class DefaultSubscriptionProvider {
   constructor({ sdk }) {
-    super(sdk.base.createSubscription());
+    return sdk.base.createSubscription();
+  }
+}
+
+export default class Subscription extends Wrapper {
+  constructor({
+    sdk,
+    subscription,
+    subscriptionProvider = DefaultSubscriptionProvider,
+  }) {
+    if(!subscription) {
+      subscription = new subscriptionProvider({
+        sdk
+      });
+    }
+    super(subscription);
     this[SDK] = sdk;
     this[FILTERS] = new Set();
     this[HANDLERS] = new Map();

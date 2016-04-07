@@ -14,9 +14,26 @@ The result should be an UI agnostic rc phone unit that can easily be custominzed
 To start
 ---
 
-```javascript
-npm install
-npm run test
-```
+1. Install dependencies
+
+    ```bash
+    npm install
+    ```
+2. Create accounts.json
+
+    ```json
+    {
+      "app": {
+        "appKey": "${your app key}",
+        "appSecret": "${your app secret}"
+      }
+    }
+    ```
+3. Run test
+
+    ```bash
+    npm run test
+    ```
+
 
 Please fork and contribute via PR.

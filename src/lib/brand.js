@@ -2,19 +2,16 @@
 const ID = Symbol();
 const NAME = Symbol();
 const PREFIX = Symbol();
-const PLATFORM = Symbol();
 
 export default class Brand {
   constructor({
     id,
     name,
-    prefix,
-    platform,
+    prefix
   }) {
     this[ID] = id;
     this[NAME] = name;
     this[PREFIX] = prefix;
-    this[PLATFORM] = platform;
   }
 
   get id() {

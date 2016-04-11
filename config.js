@@ -3,7 +3,7 @@ import RingCentral from 'ringcentral';
 
 export default {
   sdk: {
-    ...accounts.sdk,
+    ...accounts.app,
     server: RingCentral.server.production
   },
   brand: {

@@ -3,8 +3,8 @@ import config from '../config';
 
 import RcPhone from '../src/rc-phone';
 
-describe('rc-phone', () => {
-  it('should work', () => {
+describe('rc-phone', async () => {
+  it('should work', async () => {
     let phone = new RcPhone({
       sdkSettings: {
         ...config.sdk,
@@ -13,6 +13,10 @@ describe('rc-phone', () => {
         ...config.brand
       }
     });
+    await phone.auth.requestClientCredential();
+
+    console.log('check: ', await phone.auth.loggedIn());
+
   });
 });
 

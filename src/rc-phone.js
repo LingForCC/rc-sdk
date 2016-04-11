@@ -2,11 +2,13 @@ import Sdk from './lib/sdk';
 import Subscription from './lib/subscription';
 import Brand from './lib/brand';
 import Platform from './lib/platform';
+import Auth from './lib/auth';
 
 const SDK = Symbol();
 const SUBSCRIPTION = Symbol();
 const BRAND = Symbol();
 const PLATFORM = Symbol();
+const AUTH = Symbol();
 
 
 /**
@@ -19,9 +21,10 @@ export default class RcPhone {
     sdkSettings,
     sdkProvider = Sdk,
     storage,
-    brandSettings,
+    brandSettings, //TODO: should we default to rcus?
     brandProvider = Brand,
     platformProvider = Platform,
+    authProvider = Auth,
   }) {
 
     if(!sdkInstance) {
@@ -35,20 +38,23 @@ export default class RcPhone {
     }
     this[SDK] = sdkInstance;
 
+    this[BRAND] = new brandProvider(brandSettings);
+
+    this[AUTH] = new authProvider({
+      sdk: this[SDK],
+      brand: this[BRAND]
+    });
+
     this[PLATFORM] = new platformProvider({
       sdk: this[SDK],
-      brandSettings,
+      brand: this[BRAND],
+      auth: this[AUTH],
     });
 
     this[SUBSCRIPTION] = new Subscription({
       sdk: this[SDK],
+      auth: this[AUTH],
     });
-
-    this[BRAND] = new brandProvider({
-      ...brandSettings,
-      platform: this[PLATFORM]
-    });
-
 
   }
 
@@ -56,14 +62,16 @@ export default class RcPhone {
     return this[SDK];
   }
 
+  get brand() {
+    return this[BRAND];
+  }
+
+  get auth() {
+    return this[AUTH];
+  }
 
   get platform() {
     return this[PLATFORM];
-  }
-
-
-  get brand() {
-    return this[BRAND];
   }
 
   get cache() {

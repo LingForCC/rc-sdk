@@ -26,6 +26,10 @@ To start
       "app": {
         "appKey": "${your app key}",
         "appSecret": "${your app secret}"
+      },
+      "brand": {
+        "name": "${brand name}",
+        "id": "${brand id}"
       }
     }
     ```

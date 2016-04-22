@@ -3,7 +3,6 @@ import mocha from 'gulp-mocha';
 import istanbul from 'gulp-istanbul';
 import babelIstanbul from 'babel-istanbul';
 import config from './config';
-import through from 'through2';
 
 gulp.task('pre-coverage', () => {
   return gulp.src('src/**/*.js')
